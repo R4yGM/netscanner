@@ -1,0 +1,6 @@
+{
+  version: "0.1"
+  owner: "R4yan"
+  github: ""
+  help: "ScanPort - scan a singular port\nInitScan - scan the first 1023 ports"
+}
