@@ -1,2 +1,2 @@
 # netscanner
-goscan - TCP/UDP scanner to find open or closed ports
+netscanner - TCP/UDP scanner to find open or closed ports
