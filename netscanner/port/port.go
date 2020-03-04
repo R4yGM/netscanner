@@ -1,21 +1,14 @@
 
-/*  _____     ____
- / ___/__  / __/______ ____
-/ (_ / _ \_\ \/ __/ _ `/ _ \
-\___/\___/___/\__/\_,_/_//_/
-                            */
-
-
 package port
 
 import (
 	"net"
 	"strconv"
 	"time"
-	"honnef.co/go/netdb"
+	netserv"./netserv"
 )
 
-type ScanResult struct {
+type ScanResult struct {		
 	Port    string
 	State   string
 	Service string
@@ -23,8 +16,8 @@ type ScanResult struct {
 
 func ScanPort(protocol, hostname string, port int) ScanResult {
 
-				var proto *netdb.Protoent
-         var serv *netdb.Servent
+				var proto *netserv.Protoent
+         var serv *netserv.Servent
 	result := ScanResult{Port: strconv.Itoa(port) + string("/") + protocol+", "}
 	address := hostname + ":" + strconv.Itoa(port)
 	conn, err := net.DialTimeout(protocol, address, 60*time.Second)
@@ -35,8 +28,8 @@ func ScanPort(protocol, hostname string, port int) ScanResult {
 		defer conn.Close()
 				result.State = "Open, "
 	}
-	proto = netdb.GetProtoByName(protocol)
-	serv = netdb.GetServByPort(port, proto)
+	proto = netserv.GetProtoByName(protocol)
+	serv = netserv.GetServByPort(port, proto)
 
 	if serv != nil {
 		result.Service = serv.Name + "\n"
@@ -47,7 +40,17 @@ func ScanPort(protocol, hostname string, port int) ScanResult {
 
 	return result
 }
+func ScanFromTo(hostname string, protocol string, startport int, endport int) []ScanResult {
 
+	var results []ScanResult
+	 for i := startport; i <= endport; i++ {
+		results = append(results, ScanPort(protocol, hostname, i))
+	}
+
+
+	return results
+
+}
  func InitialScan(hostname string, protocol string) []ScanResult {
 
 	var results []ScanResult
@@ -55,21 +58,17 @@ func ScanPort(protocol, hostname string, port int) ScanResult {
 	 for i := 0; i <= 1024; i++ {
 		results = append(results, ScanPort(protocol, hostname, i))
 	}
-
-
 	return results
-}
-
-func WideScan(hostname string) []ScanResult {
-	var results []ScanResult
-
-	for i := 0; i <= 49152; i++ {
-		results = append(results, ScanPort("udp", hostname, i))
 	}
 
-	for i := 0; i <= 49152; i++ {
-		results = append(results, ScanPort("tcp", hostname, i))
-	}
+func CompleteScan(hostname string, protocol string) []ScanResult {
+
+ 	var results []ScanResult
+
+ 	 for i := 0; i <= 65535; i++ {
+ 		results = append(results, ScanPort(protocol, hostname, i))
+ 	}
+
 
 	return results
 }
