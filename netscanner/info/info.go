@@ -3,12 +3,14 @@ package info
 import (
   "io/ioutil"
   "encoding/json"
+  "fmt"
+  "os"
 )
 type Info struct {
-	version int `json: "version"`
-	owner   string    `json: "owner"`
-  help string  `json: "help"`
-  github string `json: "github"`
+	Version int `json:"version"`
+	Owner   string    `json:"owner"`
+  Github string `json:"github"`
+  Help string  `json:"help"`
 }
 
 func Version()(tex int){
@@ -17,7 +19,7 @@ func Version()(tex int){
   	data := Info{}
 
   	_ = json.Unmarshal([]byte(file), &data)
-    tex = data.version
+    tex = data.Version
     return tex
 }
 func Owner()(tex string){
@@ -27,29 +29,37 @@ func Owner()(tex string){
     data := Info{}
 
     _ = json.Unmarshal([]byte(file), &data)
-    tex = data.owner
+    tex = data.Owner
     return tex
 
 }
 func Github()(tex string){
 
-  file, _ := ioutil.ReadFile("info.json")
+  file, _ := ioutil.ReadFile("./info.json")
 
     data := Info{}
 
     _ = json.Unmarshal([]byte(file), &data)
-    tex = data.github
+    tex = data.Github
     return tex
 
 }
 func Helper()(tex string){
 
-  file, _ := ioutil.ReadFile("info.json")
+  jsonFile, err := os.Open("data.json")
 
-    data := Info{}
+     if err != nil {
+         fmt.Println(err)
+     }
 
-    _ = json.Unmarshal([]byte(file), &data)
-    tex = data.help
-    return tex
+     defer jsonFile.Close()
+
+     var in Info
+
+
+      responseData, err := ioutil.ReadAll(jsonFile)
+      json.Unmarshal(responseData, &in)
+     fmt.Println(in.Help)
+     return
 
 }
