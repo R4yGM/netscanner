@@ -4,9 +4,9 @@ import (
 	"fmt"
   "strings"
 	"time"
-	PortScan"./port"
-	header"./header"
-	Info"./info"
+	PortScan"github.com/R4yGM/netscanner/port"
+	header"github.com/R4yGM/netscanner/header"
+	Info"github.com/R4yGM/netscanner/info"
 	"os"
 	"strconv"
 )
