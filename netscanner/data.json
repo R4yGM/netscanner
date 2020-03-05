@@ -1,6 +1,0 @@
-{
-   "version":"0.1",
-   "owner":"R4yan",
-   "github":"https://github.com/R4yGM/netscanner",
-   "help":"\nnetscanner 0.1\n     \nUsage: netscanner <command>\n\nCommands:\n\n   sp,scanport - scan a singular port: usage sp,scanport <protocol> <hostname> <port> (ex. scanport tcp 127.0.01 80)\n   in,initscan - scan the first 1023 ports: usage in,initscan <protocol> <hostname>(ex. initscan tcp 127.0.0.1)"
-}
