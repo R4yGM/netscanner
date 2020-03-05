@@ -46,7 +46,7 @@ func Github()(tex string){
 }
 func Helper()(tex string){
 
-  jsonFile, err := os.Open("data.json")
+  jsonFile, err := os.Open("github.com/R4yGM/netscanner/info/data.json")
 
      if err != nil {
          fmt.Println(err)
