@@ -19,26 +19,31 @@ func main() {
 	}
 
 	arg := os.Args[1]
-	if arg != "scanfromto" || arg != "sft" ||  arg != "scanport" || arg != "sp" || arg != "initscan" || arg != "in" || arg != "help" || arg != "h" {
+/*	if arg != "scanfromto" || arg != "sft" ||  arg != "scanport" || arg != "sp" || arg != "initscan" || arg != "in" || arg != "help" || arg != "h" {
 		fmt.Println("Unkown command\n")
 			Help()
 		return
-	}
+	}*/
 
 	if arg == "completescan" || arg == "cs"{
-		if os.Args[2] == ""{
-			fmt.Println("Missing parameters! \nUsage : cs,completescan <protocol> <hostname> <savefile>(ex. initscan udp 127.0.0.1 true)\n-protocol - can be tcp or udp\n-hostname - hostname of the target - localhost/127.0.0.1\n-savefile - bool that saves the scan\ntype help if you need help")
+		if len(os.Args) <= 4{
+			fmt.Println("Missing parameters! \nUsage : cs,completescan <protocol> <hostname> <savefile>(ex. initscan udp 127.0.0.1 true)\n-protocol - can be tcp or udp\n-hostname - hostname of the target - localhost/127.0.0.1\n-savefile - bool that saves the scan - true / false \ntype help if you need help")
+			return
 		}
 		var proto = os.Args[2]
 		var hostname = os.Args[3]
 		var booll = os.Args[4]
-
+		if booll != "false" || booll != "true"{
+			//fmt.Println("wrong arguments : \nUsage : cs,completescan <protocol> <hostname> <savefile>(ex. initscan udp 127.0.0.1 true)\n-protocol - can be tcp or udp\n-hostname - hostname of the target - localhost/127.0.0.1\n-savefile - bool that saves the scan - true / false \ntype help if you need help")
+			//return
+			booll = "false"
+		}
 		booll1, err := strconv.ParseBool(booll)
 		if err != nil{
 			fmt.Println(err)
 		}
 
-		InitialScan(proto, hostname, booll1)
+		CompleteScan(proto, hostname, booll1)
 		return
 	}
 	if arg == "help" || arg == "h"{
@@ -46,15 +51,20 @@ func main() {
 		return
 	}
 
-	if arg == "scanfromto" || arg == "sft"{
-		if len(os.Args) == 2 || len(os.Args) == 3 || len(os.Args) == 4{				//################
-			fmt.Println("\nMissing parameters! \nUsage : sft,scanfromto  protocol hostname startport endport (ex. scanfromto tcp 127.0.0.1 20 100)\n-protocol - can be tcp or udp\n-hostname - hostname of the target - localhost/127.0.0.1\n-startport - first port to scan\n-endport - last port to scan\ntype help if you need more help\n")
+	if arg == "scanfromto" || arg == "sft"{									//install again docker
+		if len(os.Args) <= 5{				//################
+			fmt.Println("\nMissing parameters! \nUsage : sft,scanfromto  <protocol> <hostname> <startport> <endport> <savefile> (ex. scanfromto tcp 127.0.0.1 20 100 false)\n-protocol - can be tcp or udp\n-hostname - hostname of the target - localhost/127.0.0.1\n-startport - first port to scan\n-endport - last port to scan\n-savefile - bool that saves the scan - true / false\ntype help if you need more help\n")
 			return
 		}
 		var proto = os.Args[2]
 		var hostname = os.Args[3]
 		var	startport = os.Args[4]
 		var	endport = os.Args[5]
+		var	booll = os.Args[6]
+		booll1, err := strconv.ParseBool(booll)
+		if err != nil{
+			fmt.Println(err)
+		}
 		sp, err := strconv.Atoi(startport)
 	if err != nil {
 		fmt.Println(err)
@@ -64,22 +74,33 @@ func main() {
 if err != nil {
 	fmt.Println(err)
 }
-		ScanFromTo(proto,hostname,sp,ep)
+		ScanFromTo(proto,hostname,sp,ep,booll1)
 		return
 	}
 	if arg == "information" || arg == "info"{
-		Infor()
+	//	Infor()
+
+	//	var ver =Info.Version
+	//	var own = Info.Owner
+	//	var gith = Info.Github
+		//fmt.Printf("version : ",ver)
+		//fmt.Printf("	made by :",own)
+		//fmt.Printf("	Github Repository : ",gith)
+		var info = Infor()
+		fmt.Println(info)
 		return
 	}
 	if arg == "version" || arg == "v"{
-		Version()
+		var ver = Version()
+		fmt.Println(ver)
 		return
 	}
 
 
 	if arg == "scanport" || arg == "sp"{
-		if os.Args[2] == ""{
+			if len(os.Args) <= 4{
 			fmt.Println("Missing parameters! \nUsage : sp,scanport  protocol hostname port (ex. scanport tcp 127.0.0.1 80)\n-protocol - can be tcp or udp\n-hostname - hostname of the target - localhost/127.0.0.1 -port - port to scan\ntype help if you need help")
+			return
 		}
 
 		var proto = os.Args[2]
@@ -94,8 +115,9 @@ if err != nil {
 	}
 
 	if arg == "initscan" || arg == "in"{
-		if os.Args[2] == ""{
+		if len(os.Args) <= 4{
 			fmt.Println("Missing parameters! \nUsage : in,initscan <protocol> <hostname> <savefile>(ex. initscan udp 127.0.0.1 false)\n-protocol - can be tcp or udp\n-hostname - hostname of the target - localhost/127.0.0.1\n-savefile - bool that saves the scan\ntype help if you need help")
+			return
 		}
 		var proto = os.Args[2]
 		var hostname = os.Args[3]
@@ -113,6 +135,9 @@ if err != nil {
 		Help()
 		return
 	}
+	fmt.Println("Unkown command\n")
+		Help()
+		return
 }
 func ScanPort(protocol string, hostname string, port int)(texe string){
 
@@ -206,7 +231,7 @@ fmt.Println("\n")
 
 return str
 }
-func ScanFromTo(hostname string, protocol string, startport int, endport int)(texe string){
+func ScanFromTo(hostname string, protocol string, startport int, endport int,savefile bool)(texe string){
 
 		if startport > endport {
 			var initP = startport
@@ -221,6 +246,19 @@ func ScanFromTo(hostname string, protocol string, startport int, endport int)(te
 		fmt.Println("  Port      status   service\n")
 		results := PortScan.ScanFromTo(protocol,hostname,startport,endport)
 		var replacer = strings.NewReplacer("{", " ", "}", "")
+		if savefile == true{
+			f, err := os.Create("CompleteScan"+dtStart.String()+ ".txt")
+				if err != nil {
+						fmt.Println(err)
+						return
+				}
+
+
+		var str1 = replacer.Replace(fmt.Sprint(results))
+		f.WriteString(strings.Trim(fmt.Sprint(str1), "[]"))
+
+		f.Close()
+		}
 
 
 	var str = replacer.Replace(fmt.Sprint(results))
@@ -228,24 +266,29 @@ func ScanFromTo(hostname string, protocol string, startport int, endport int)(te
 		dtEnd := time.Now()
 	fmt.Println("Scan started at :", dtStart.String())
 	fmt.Println("And finished at :", dtEnd.String())
+	if savefile == true{
+
+	fmt.Println("Scan saved in CompleteScan"+dtStart.String()+ ".txt")
+	}
 	fmt.Println("\n")
 	return str
 
 }
 
 func Infor()(tex string){
-	var ver =Info.Version
-	var own = Info.Owner
-	var gith = Info.Github
-	fmt.Printf("version : ",ver)
-	fmt.Printf("	made by :",own)
-	fmt.Printf("	Github Repository : ",gith)
-
+	var ver =Info.Version()
+	var own = Info.Owner()
+	var gith = Info.Github()
+	//fmt.Printf("version : ",ver)
+	//fmt.Printf("	made by :",own)
+	//fmt.Printf("	Github Repository : ",gith)
+  tex = "\nversion : "+string(ver)+"\nmade by :"+own+"\nGithub Repository : "+gith+"\n"
 	return
 }
-func Version(){
-	var ver =Info.Version
-	fmt.Println(ver)
+func Version()(tex string){
+	var ver =Info.Version()
+	//fmt.Println(ver)
+	tex = ver
 	return
 }
 
