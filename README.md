@@ -1,18 +1,11 @@
 # netscanner
 netscanner - TCP/UDP scanner to find open or closed ports
 ## installation 
-you have to run this command to installer the installer
+you have to run this command to install the program
 ```shell
-$ wget https://gist.githubusercontent.com/R4yGM/b989427de2c74d04e2ed1b4257108e0c/raw/5c3a36a107e36d1a2798fce4a330f0700bb2f2de/installer.sh
+$ go get github.com/R4yGM/netscanner
 ```
-then you will have to make executable installer.sh
-```shell
-$ chmod +x netscanner.sh
-```
-and then run the installer by typing
-```shell
-$ ./netscanner.sh
-```
+
 ## Usage
 ### Commands :
 ```shell
