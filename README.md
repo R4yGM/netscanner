@@ -11,7 +11,7 @@ $ chmod +x netscanner.sh
 ```
 and then run the installer by typing
 ```shell
-$ sudo ./netscanner.sh
+$ ./netscanner.sh
 ```
 ## Usage
 ### Commands :
@@ -50,3 +50,4 @@ Scan started at : 2020-03-07 12:16:08.4845743 +0100 CET m=+0.002086201
 And finished at : 2020-03-07 12:16:08.4854596 +0100 CET m=+0.002971501
 
 ```
+
