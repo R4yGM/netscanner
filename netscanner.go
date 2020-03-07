@@ -1,4 +1,4 @@
-package netscanner
+package main
 
 import (
 	"fmt"
@@ -52,7 +52,7 @@ func main() {
 	}
 
 	if arg == "scanfromto" || arg == "sft"{									//install again docker
-		if len(os.Args) <= 5{				//################
+		if len(os.Args) <= 6{				//################
 			fmt.Println("\nMissing parameters! \nUsage : sft,scanfromto  <protocol> <hostname> <startport> <endport> <savefile> (ex. scanfromto tcp 127.0.0.1 20 100 false)\n-protocol - can be tcp or udp\n-hostname - hostname of the target - localhost/127.0.0.1\n-startport - first port to scan\n-endport - last port to scan\n-savefile - bool that saves the scan - true / false\ntype help if you need more help\n")
 			return
 		}
