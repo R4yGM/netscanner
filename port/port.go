@@ -8,7 +8,7 @@ import (
 	netserv"github.com/R4yGM/netscanner/netserv"
 )
 
-type ScanResult struct {		
+type ScanResult struct {
 	Port    string
 	State   string
 	Service string
