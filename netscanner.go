@@ -19,7 +19,11 @@ func main() {
 	}
 
 	arg := os.Args[1]
-
+/*	if arg != "scanfromto" || arg != "sft" ||  arg != "scanport" || arg != "sp" || arg != "initscan" || arg != "in" || arg != "help" || arg != "h" {
+		fmt.Println("Unkown command\n")
+			Help()
+		return
+	}*/
 
 	if arg == "completescan" || arg == "cs"{
 		if len(os.Args) <= 4{
@@ -47,8 +51,8 @@ func main() {
 		return
 	}
 
-	if arg == "scanfromto" || arg == "sft"{									
-		if len(os.Args) <= 6{				
+	if arg == "scanfromto" || arg == "sft"{									//install again docker
+		if len(os.Args) <= 6{				//################
 			fmt.Println("\nMissing parameters! \nUsage : sft,scanfromto  <protocol> <hostname> <startport> <endport> <savefile> (ex. scanfromto tcp 127.0.0.1 20 100 false)\n-protocol - can be tcp or udp\n-hostname - hostname of the target - localhost/127.0.0.1\n-startport - first port to scan\n-endport - last port to scan\n-savefile - bool that saves the scan - true / false\ntype help if you need more help\n")
 			return
 		}
@@ -74,6 +78,14 @@ if err != nil {
 		return
 	}
 	if arg == "information" || arg == "info"{
+	//	Infor()
+
+	//	var ver =Info.Version
+	//	var own = Info.Owner
+	//	var gith = Info.Github
+		//fmt.Printf("version : ",ver)
+		//fmt.Printf("	made by :",own)
+		//fmt.Printf("	Github Repository : ",gith)
 		var info = Infor()
 		fmt.Println(info)
 		return
@@ -267,11 +279,15 @@ func Infor()(tex string){
 	var ver =Info.Version()
 	var own = Info.Owner()
 	var gith = Info.Github()
+	//fmt.Printf("version : ",ver)
+	//fmt.Printf("	made by :",own)
+	//fmt.Printf("	Github Repository : ",gith)
   tex = "\nversion : "+string(ver)+"\nmade by :"+own+"\nGithub Repository : "+gith+"\n"
 	return
 }
 func Version()(tex string){
 	var ver =Info.Version()
+	//fmt.Println(ver)
 	tex = ver
 	return
 }
