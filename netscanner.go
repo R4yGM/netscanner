@@ -1,4 +1,4 @@
-package netscanner
+package main
 
 import (
 	"fmt"
