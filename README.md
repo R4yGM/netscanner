@@ -19,6 +19,7 @@ Commands:
    in,initscan - scan the first 1023 ports: usage in,initscan <protocol> <hostname> <savefilebool>(ex. initscan udp 127.0.0.1 false)
    cs,completescan - scan all the ports: usage cs,completescan <protocol> <hostname> <savefilebool>(ex. completescan tcp 127.0.0.1 true)
    sft,scanfromto - scann the ports from a port given to another port given: usage sft,scanfromto <protocol> <hostname> <startport> <endport> <savefile>(ex. sft tcp 127.0.0.1 80 443 true)
+   v,version 
 ``` 
 ### Parameters:
 
