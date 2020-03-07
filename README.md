@@ -11,7 +11,7 @@ $ chmod +x netscanner.sh
 ```
 and then run the installer by typing
 ```shell
-$ ./netscanner.sh
+$ sudo ./netscanner.sh
 ```
 ## Usage
 ### Commands :
