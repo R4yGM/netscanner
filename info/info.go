@@ -9,7 +9,7 @@ import (
 var ver = "0.1"
 var owner = "R4yan"
 var github = "https://github.com/R4yGM/netscanner"
-var help = "\nnetscanner 0.1\n     \nUsage: netscanner <command>\n\nCommands:\n\n   sp,scanport - scan a singular port: usage sp,scanport <protocol> <hostname> <port> (ex. scanport tcp 127.0.01 80)\n   in,initscan - scan the first 1023 ports: usage in,initscan <protocol> <hostname> <savefilebool>(ex. initscan udp 127.0.0.1 false)\n   cs,completescan - scan all the ports: usage cs,completescan <protocol> <hostname> <savefilebool>(ex. initscan tcp 127.0.0.1 true)\n		help - shows this text\n   version - show the current version of the program\n 	info,information - shows some information about the program"
+var help = "\nnetscanner 0.1\n     \nUsage: netscanner <command>\n\nCommands:\n\n   sp,scanport - scan a singular port: usage sp,scanport <protocol> <hostname> <port> (ex. scanport tcp 127.0.01 80)\n   in,initscan - scan the first 1023 ports: usage in,initscan <protocol> <hostname> <savefilebool>(ex. initscan udp 127.0.0.1 false)\n   cs,completescan - scan all the ports: usage cs,completescan <protocol> <hostname> <savefilebool>(ex. initscan tcp 127.0.0.1 true)\n   \nh,help - shows this text\n   v,version - show the current version of the program\n   info,information - shows some information about the program"\n
 
 type Info struct {
 	Version string `json:"version"`
