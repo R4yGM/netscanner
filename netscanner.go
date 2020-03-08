@@ -132,7 +132,8 @@ if err != nil {
 		return
 	}
 	if arg == "help" || arg == "h"{
-		Help()
+		var help = Help()
+		fmt.Println(help)
 		return
 	}
 	fmt.Println("Unkown command\n")
@@ -292,9 +293,4 @@ func Version()(tex string){
 	return
 }
 
-func Help()(tex string) {
-	var helpe = Info.Helper()
-	tex = helpe
-	fmt.Println(tex)
-	return
-}
+func Help()(help string) { return Info.Helper() }
