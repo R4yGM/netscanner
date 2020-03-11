@@ -1,4 +1,3 @@
-git clone github.com/R4yGM/netscanner
-go build ./netscanner
+go build ./
 cp ./netscanner /usr/local/bin
 netscanner
