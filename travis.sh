@@ -1,3 +1,3 @@
 go build ./
-cp ./netscanner /usr/local/bin
+sudo cp ./netscanner /usr/local/bin
 netscanner
