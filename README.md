@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/R4yGM/netscanner.svg?branch=master)](https://travis-ci.org/R4yGM/netscanner)
 # netscanner
 netscanner - TCP/UDP scanner to find open or closed ports
 ## installation 
