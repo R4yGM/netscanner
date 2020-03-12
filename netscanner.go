@@ -139,7 +139,8 @@ if err != nil {
 		return
 	}
 	fmt.Println("Unkown command\n")
-		Help()
+		var help = Help()
+		fmt.Println(help)
 		return
 }
 func ScanPort(protocol string, hostname string, port int)(texe string){
