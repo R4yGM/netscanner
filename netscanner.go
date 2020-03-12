@@ -14,7 +14,8 @@ import (
 func main() {
 
 	if len(os.Args) == 1{
-		Help()
+		var help = Help()
+		fmt.Println(help)
 		return
 	}
 
@@ -47,7 +48,8 @@ func main() {
 		return
 	}
 	if arg == "help" || arg == "h"{
-		Help()
+		var help = Help()
+		fmt.Println(help)
 		return
 	}
 
