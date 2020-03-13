@@ -44,7 +44,8 @@ func main() {
 			fmt.Println(err)
 		}
 
-		CompleteScan(proto, hostname, booll1)
+		//CompleteScan(proto, hostname, booll1)
+		ScanFromTo(proto, hostname, 1, 65535, booll1)
 		return
 	}
 	if arg == "help" || arg == "h"{
@@ -130,7 +131,8 @@ if err != nil {
 			fmt.Println(err)
 		}
 
-		InitialScan(proto, hostname, booll1)
+		//InitialScan(proto, hostname, booll1)
+		ScanFromTo(proto, hostname, 1, 1024, booll1)
 		return
 	}
 	if arg == "help" || arg == "h"{
