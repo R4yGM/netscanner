@@ -10,7 +10,7 @@ $ go get github.com/R4yGM/netscanner
 ## Usage
 ### Commands :
 ```shell
-netscanner 0.1
+netscanner 0.1 : TCP/UDP port scanner
 
 Usage: netscanner <command>
 
@@ -19,10 +19,11 @@ Commands:
    sp,scanport - scan a singular port: usage sp,scanport <protocol> <hostname> <port> (ex. scanport tcp 127.0.01 80)
    in,initscan - scan the first 1023 ports: usage in,initscan <protocol> <hostname> <savefilebool>(ex. initscan udp 127.0.0.1 false)
    cs,completescan - scan all the ports: usage cs,completescan <protocol> <hostname> <savefilebool>(ex. completescan tcp 127.0.0.1 true)
-   sft,scanfromto - scann the ports from a port given to another port given: usage sft,scanfromto <protocol> <hostname> <startport> <endport> <savefile>(ex. sft tcp 127.0.0.1 80 443 true)
+   sft,scanfromto - scan the ports from a port given to another port given: usage sft,scanfromto <protocol> <hostname> <startport> <endport> <savefile>(ex. sft tcp 127.0.0.1 80 443 true)
    h,help - shows this text
    v,version - show the current version of the program
    info,information - shows some information about the program
+   msp,maskscanport - scan a port of all the IPs in Subnet: usage msp,maskscanport <protocol> <hostname> <port> <savefilebool>(ex. msp tcp 127.0.0.1/24 true)
    
 ``` 
 ### Parameters:
@@ -34,6 +35,7 @@ Commands:
 <savefile> - bool that saves the scan in a file - true / false
 <startport> - port to start scanning
 <endport> - last port to scan
+<hostname>(for mask scan) - must contain /24 or /32
 ```
 ### Example
 
