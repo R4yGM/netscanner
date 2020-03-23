@@ -20,6 +20,29 @@ func main() {
 	}
 
 	arg := os.Args[1]
+	
+		if arg == "maskscanport" || arg == "msp" {
+		if len(os.Args) <= 5 {
+			fmt.Println("Missing parameters! \nUsage : maskscanport,msp <protocol> <hostname> <port> <savefile>(ex. msp tcp 127.0.0.1/24 80 true)\n-protocol - can be tcp or udp\n-hostname - hostname of the target - localhost/127.0.0.1\n-port- port to scan\n-savefile - bool that saves the scan - true / false \ntype help if you need help")
+			return
+		}
+		var proto = os.Args[2]
+		var hostname = os.Args[3]
+		var port = os.Args[4]
+		var booll = os.Args[5]
+		if booll != "false" || booll != "true" {
+		
+			booll = "false"
+		}
+		booll1, err := strconv.ParseBool(booll)
+		sp, err := strconv.Atoi(port)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		MaskScanP(proto, hostname, sp, booll1)
+		return
+	}
 
 	if arg == "completescan" || arg == "cs"{
 		if len(os.Args) <= 4{
@@ -280,3 +303,36 @@ func Version()(tex string){
 }
 
 func Help()(help string) { return Info.Helper() }
+
+func MaskScanPort(protocol string, hostname string, port int, savefile bool) (texe string){
+var tex = header.AsciiTitle()
+fmt.Println(tex)
+dtStart := time.Now()
+fmt.Println("Port Scanning\n")
+fmt.Println("  Port      status      service\n")
+results := PortScan.MaskScanPort(protocol, hostname, port)
+var replacer = strings.NewReplacer("{", " ", "}", "")
+
+var str = replacer.Replace(fmt.Sprint(results))
+if savefile == true {
+	f, err := os.Create("MaskScanPort" + dtStart.String() + ".txt")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	var str1 = replacer.Replace(fmt.Sprint(results))
+	f.WriteString(strings.Trim(fmt.Sprint(str1), "[]"))
+
+	f.Close()
+}
+fmt.Println(strings.Trim(fmt.Sprint(str), "[]"))
+dtEnd := time.Now()
+fmt.Println("Scan started at :", dtStart.String())
+fmt.Println("And finished at :", dtEnd.String())
+if savefile == true {
+	fmt.Println("Scan saved in MaskScanPort" + dtStart.String() + ".txt")
+}
+fmt.Println("\n")
+return str
+}
