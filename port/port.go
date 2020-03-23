@@ -72,3 +72,43 @@ func ScanFromTo(hostname string, protocol string, startport int, endport int) []
 
 	return results
 }
+
+func MaskPortR(protocol, hostname string, port int) ScanResult {
+
+				var proto *netserv.Protoent
+         var serv *netserv.Servent
+	result := ScanResult{Port: hostname+":"+strconv.Itoa(port) + string("/") + protocol+", "}
+	address := hostname + ":" + strconv.Itoa(port)
+	conn, err := net.DialTimeout(protocol, address, 60*time.Second)
+
+	if err != nil {
+		result.State = "Closed, "
+	}else {
+		defer conn.Close()
+				result.State = "Open, "
+	}
+	proto = netserv.GetProtoByName(protocol)
+	serv = netserv.GetServByPort(port, proto)
+
+	if serv != nil {
+		result.Service = serv.Name + "\n"
+	}
+	if result.Service == ""{
+		result.Service = "\n"
+	}
+
+	return result
+}
+func MaskScanPort(protocol, hostname string, port int) []ScanResult {
+
+	var results []ScanResult
+	tmp, err := netmask.Hosts(hostname)
+	if(err != nil){
+		log.Fatal(err)
+	}
+	for i := 0; i < len(tmp);i++{
+
+			results = append(results, MaskPortR(protocol, tmp[i], port))
+	}
+	return results
+}
