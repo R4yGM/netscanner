@@ -40,7 +40,7 @@ func main() {
 			fmt.Println(err)
 		}
 
-		MaskScanP(proto, hostname, sp, booll1)
+		MaskScanPort(proto, hostname, sp, booll1)
 		return
 	}
 
