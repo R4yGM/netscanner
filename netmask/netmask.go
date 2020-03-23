@@ -1,8 +1,6 @@
 package netmask
 
 import (
-	"fmt"
-	"log"
 	"net"
 )
 
