@@ -5,7 +5,9 @@ import (
 	"net"
 	"strconv"
 	"time"
+	"log"
 	netserv"github.com/R4yGM/netscanner/netserv"
+	netmask"github.com/R4yGM/netscanner/netmask"
 )
 
 type ScanResult struct {
